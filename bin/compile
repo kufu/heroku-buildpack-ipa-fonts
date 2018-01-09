@@ -1,0 +1,17 @@
+#!/bin/bash -ex
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+FONT_ZIP=IPAfont00303.zip
+FONTS_URL=https://ipafont.ipa.go.jp/old/ipafont/IPAfont00303.php
+FONTS=IPAfont00303
+
+[ -f $CACHE_DIR/$FONT_ZIP ] || \
+  wget -nv $FONTS_URL -O $CACHE_DIR/$FONT_ZIP && \
+  unzip -d $CACHE_DIR -u $CACHE_DIR/$FONT_ZIP
+
+[ -d $BUILD_DIR/.fonts ] || \
+  mkdir -p $BUILD_DIR/.fonts
+
+cp $CACHE_DIR/$FONTS/*.ttf $BUILD_DIR/.fonts
